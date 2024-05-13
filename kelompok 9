@@ -26,3 +26,32 @@ class WeightedGraph:
             # Hapus referensi ke kota yang dihapus dari kota lain
             for kota in self.cityList:
                 if kotaDihapus in self.cityList[kota]:
+                    del self.cityList[kota][kotaDihapus]
+            return True
+        return False
+
+    def tambahkanJalan(self, kota1, kota2, jarak):
+        if kota1 in self.cityList and kota2 in self.cityList:
+            self.cityList[kota1][kota2] = jarak
+            self.cityList[kota2][kota1] = jarak
+            return True
+        return False
+
+    def hapusJalan(self, kota1, kota2):
+        if kota1 in self.cityList and kota2 in self.cityList:
+            if kota2 in self.cityList[kota1]:
+                del self.cityList[kota1][kota2]
+                del self.cityList[kota2][kota1]
+                return True
+        return False
+
+    def dijkstra(self, sumber):
+        # Inisialisasi jarak dengan nilai yang besar
+        max_jarak = float('inf')
+        jarak = {kota: max_jarak for kota in self.cityList}
+
+        jarak[sumber] = 0
+
+        # Inisialisasi daftar kota yang belum dikunjungi
+        kota_belum_dikunjungi = list(self.cityList.keys())
+
