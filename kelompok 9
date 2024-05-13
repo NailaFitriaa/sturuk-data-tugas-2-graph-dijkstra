@@ -1,1 +1,28 @@
+class WeightedGraph:
+    def __init__(self):
+        self.cityList = {}
 
+    def printGraph(self):
+        # Iterasi setiap kota
+        for kota in self.cityList:
+            # Menampilkan nama kota
+            print(kota, ":", self.cityList[kota])
+
+            # Menampilkan jarak ke kota tetangga
+            for tetangga, jarak in self.cityList[kota].items():
+                # Menampilkan tetangga dan jarak
+                print("    ->", tetangga, ":", jarak, "km")
+
+    def tambahkanKota(self, kota):
+        if kota not in self.cityList:
+            self.cityList[kota] = {}
+            return True
+        return False
+
+    def hapusKota(self, kotaDihapus):
+        if kotaDihapus in self.cityList:
+            # Hapus kota dari daftar kota
+            del self.cityList[kotaDihapus]
+            # Hapus referensi ke kota yang dihapus dari kota lain
+            for kota in self.cityList:
+                if kotaDihapus in self.cityList[kota]:
