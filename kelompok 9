@@ -55,3 +55,38 @@ class WeightedGraph:
         # Inisialisasi daftar kota yang belum dikunjungi
         kota_belum_dikunjungi = list(self.cityList.keys())
 
+         while kota_belum_dikunjungi:
+            # Cari kota yang belum dikunjungi dengan jarak terkecil
+            min_jarak = max_jarak
+            kota_terdekat = None
+            for kota in kota_belum_dikunjungi:
+                if jarak[kota] < min_jarak:
+                    min_jarak = jarak[kota]
+                    kota_terdekat = kota
+
+            # Hapus kota terdekat dari daftar belum dikunjungi
+            kota_belum_dikunjungi.remove(kota_terdekat)
+
+            # Perbarui jarak ke kota tetangga
+            for tetangga, berat in self.cityList[kota_terdekat].items():
+                jarak_baru = jarak[kota_terdekat] + berat
+                if jarak_baru < jarak[tetangga]:
+                    jarak[tetangga] = jarak_baru
+
+        return jarak
+
+
+# Contoh penggunaan dengan algoritma Dijkstra:
+peta_jepang = WeightedGraph()
+peta_jepang.tambahkanKota("Tokyo")
+peta_jepang.tambahkanKota("Okayama")
+peta_jepang.tambahkanKota("Oita")
+peta_jepang.tambahkanKota("Kitakyushu")
+peta_jepang.tambahkanKota("Matsuyama")
+peta_jepang.tambahkanKota("Osaka")
+peta_jepang.tambahkanKota("Nagoya")
+peta_jepang.tambahkanKota("Hamamatsu")
+peta_jepang.tambahkanKota("Nagano")
+peta_jepang.tambahkanKota("Kanazawa")
+
+
